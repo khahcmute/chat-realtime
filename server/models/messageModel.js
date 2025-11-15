@@ -7,6 +7,11 @@ const messageSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    room: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Room",
+      required: true,
+    },
     text: { type: String, required: true },
   },
   { timestamps: true }

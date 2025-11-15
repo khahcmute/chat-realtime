@@ -1,0 +1,128 @@
+{
+  "info": {
+    "name": "Chat App API",
+    "_postman_id": "12345678-90ab-cdef-1234-567890abcdef",
+    "description": "API collection for chat app (auth, friends, rooms, messages)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Register",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"username\": \"user1\",\n  \"password\": \"123456\"\n}"
+        },
+        "url": { "raw": "http://localhost:5000/api/users/register", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api","users","register"] }
+      }
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"username\": \"user1\",\n  \"password\": \"123456\"\n}" },
+        "url": { "raw": "http://localhost:5000/api/users/login", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api","users","login"] }
+      }
+    },
+    {
+      "name": "Search Friend",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": { "raw": "http://localhost:5000/api/friends/search?q=user", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api","friends","search"], "query": [{ "key": "q", "value": "user" }] }
+      }
+    },
+    {
+      "name": "Add Friend",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"toUserId\": \"{{friendId}}\"\n}" },
+        "url": { "raw": "http://localhost:5000/api/friends/add", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api","friends","add"] }
+      }
+    },
+    {
+      "name": "Accept Friend",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"fromUserId\": \"{{friendId}}\"\n}" },
+        "url": { "raw": "http://localhost:5000/api/friends/accept", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api","friends","accept"] }
+      }
+    },
+    {
+      "name": "Friend List",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": { "raw": "http://localhost:5000/api/friends/list", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api","friends","list"] }
+      }
+    },
+    {
+      "name": "Open Chat 1-1",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"userId2\": \"{{friendId}}\"\n}" },
+        "url": { "raw": "http://localhost:5000/api/chat/open", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api","chat","open"] }
+      }
+    },
+    {
+      "name": "Get Rooms",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": { "raw": "http://localhost:5000/api/rooms", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api","rooms"] }
+      }
+    },
+    {
+      "name": "Create Room",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"name\": \"Group Chat\",\n  \"members\": [\"{{friendId}}\"]\n}" },
+        "url": { "raw": "http://localhost:5000/api/rooms/create", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api","rooms","create"] }
+      }
+    },
+    {
+      "name": "Add Member",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"roomId\": \"{{roomId}}\",\n  \"userId\": \"{{friendId}}\"\n}" },
+        "url": { "raw": "http://localhost:5000/api/rooms/addMember", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api","rooms","addMember"] }
+      }
+    },
+    {
+      "name": "Leave Room",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"roomId\": \"{{roomId}}\"\n}" },
+        "url": { "raw": "http://localhost:5000/api/rooms/leave", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api","rooms","leave"] }
+      }
+    },
+    {
+      "name": "Get Messages",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": { "raw": "http://localhost:5000/api/messages/{{roomId}}?page=1&limit=20", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api","messages","{{roomId}}"], "query": [{ "key": "page", "value": "1" }, { "key": "limit", "value": "20" }] }
+      }
+    },
+    {
+      "name": "Send Message",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"text\": \"Hello!\"\n}" },
+        "url": { "raw": "http://localhost:5000/api/messages/{{roomId}}", "protocol": "http", "host": ["localhost"], "port": "5000", "path": ["api","messages","{{roomId}}"] }
+      }
+    }
+  ]
+}
